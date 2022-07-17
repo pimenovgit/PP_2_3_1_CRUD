@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Редактировать</title>
 </head>
 <body>
-<form th:action="@{/users}" th:object="${user/}" th:method="post">
+<form th:method="POST" th:action ="@{/update/{id}(id=${user.id})}" th:object = "${user}">
     <th><input readonly type="number" th:field="*{id}" id="id" placeholder="Идентификатор"></th>
     <br/>
     <input type="text" th:field="*{name}" id="name" placeholder="Имя"/>
@@ -15,5 +15,6 @@
     <input type="text" th:field="*{mail}" id="mail" placeholder="Почта"/>
     <br/>
     <input type = "submit" value = "Редактировать"/>
+</form>
 </body>
 </html>

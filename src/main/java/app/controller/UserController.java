@@ -5,10 +5,8 @@ import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;;
+import org.springframework.web.bind.annotation.*;
+;
 
 
 @Controller
@@ -26,19 +24,14 @@ public class UserController {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
-    @GetMapping(value = "/{id}")
-    public String getUserId(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserId(id));
-        return "showUser";
-    }
 
     @GetMapping(value = "/create")
-    public String newUser(Model model) {
+    public String createUserForm(Model model) {
         model.addAttribute("user", new Users());
         return "create";
     }
 
-    @PostMapping()
+    @PostMapping(value = "/create")
     public String createUser(@ModelAttribute("user") Users user){
         userService.createUser(user);
         return "redirect:/users";
@@ -52,15 +45,14 @@ public class UserController {
 
     @GetMapping(value = "/update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.updateUser(user);)
-        return "/update";
+        model.addAttribute("user", userService.getUserId(id));
+        return "update";
     }
 
-    @PostMapping("/update")
-    public String updateUser(Users user) {
+    @PostMapping("/update/{id}")
+    public String updateUser(@ModelAttribute("user") Users user) {
         userService.updateUser(user);
         return "redirect:/users";
-
     }
 
 }
